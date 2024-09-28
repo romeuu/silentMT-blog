@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Base.astro'
+import Container from '../../components/Container.astro';
+import BlogPostPreview from '../../components/BlogPostPreview.astro';
+import Paginator from '../../components/Paginator.astro'
+import BaseHead from '../../components/BaseHead.astro'
+import Header from '../../components/Header.astro'
+import Nav from '../../components/Nav.astro'
+import SearchBar from '../../components/SearchBar.astro'
+import FormattedDate from '../../components/FormattedDate.astro'
+import {SITE_DESCRIPTION} from "../../consts.js";
+import Footer from '../../components/Footer.astro'
+
+const posts = await Astro.glob('./content/*.md').then(posts =>
+        posts
+            .map(({ frontmatter, url }) => ({
+              url: url,
+              title: frontmatter.title,
+              description: frontmatter.description,
+              publishDate: frontmatter.publishDate,
+              image: frontmatter.image,
+              tags: frontmatter.tags
+            }))
+    // .sort((a, b) => {
+    //   new Date(b.publishDate) - new Date(a.publishDate)
+    // })
+);
+
+console.log(posts);
+
+const uniqueTags = [
+  ...new Set(
+      posts.flatMap((post) => post.tags).filter((tag) => tag !== undefined)
+  ),
+].sort();
+
+// Component Script:
+// You can write any JavaScript/TypeScript that you'd like here.
+// It will run during the build, but never in the browser.
+// All variables are available to use in the HTML template below.
+
+const seo = {
+  title: 'Example Blog',
+  description: 'This is a starter repo for an blog built with Astro including open graph tags, canonical urls, RSS, sitemap support.'
+}
+
+---
+
+
+<!doctype html>
+<Layout {seo}>
+  <Container>
+    <Header>
+      <Nav />
+    </Header>
+    <main>
+      <SearchBar />
+      <ul class="blog-posts">
+        {
+          posts.map((post) => (
+              <li>
+                  <span>
+                    <i>
+                      <FormattedDate date={post.publishDate} />
+                    </i>
+                  </span>
+                <a href={`/blog/${post.slug}/`}>{post.title}</a>
+              </li>
+          ))
+        }
+      </ul>
+      <div class="tags">
+        {
+          uniqueTags.map((tag) => (
+              <a class="tag" href={`/tags/${tag}/`}>
+                #{tag}
+              </a>
+          ))
+        }
+      </div>
+    </main>
+  </Container>
+  <Footer></Footer>
+</Layout>
