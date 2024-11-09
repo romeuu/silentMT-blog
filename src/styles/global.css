@@ -61,7 +61,15 @@ a:hover {
 }
 
 nav a {
-  margin-right: 8px;
+  padding: 8px;
+}
+
+p {
+  font-size: 13px;
+}
+
+time {
+  font-size: 13px;
 }
 
 strong,
