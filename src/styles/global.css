@@ -6,8 +6,8 @@
   --background-color: #fff;
   --heading-color: #222;
   --text-color: #444;
-  --link-color: #3273dc;
-  --visited-color: #8b6fcb;
+  --link-color: #008000;
+  --visited-color: #3273dc;
   --code-background-color: #f2f2f2;
   --code-color: #222;
   --blockquote-color: #222;
@@ -61,7 +61,15 @@ a:hover {
 }
 
 nav a {
-  margin-right: 8px;
+  padding: 8px;
+}
+
+p {
+  font-size: 13px;
+}
+
+time {
+  font-size: 13px;
 }
 
 strong,
@@ -146,8 +154,4 @@ ul.blog-posts li {
 
 ul.blog-posts li span {
   flex: 0 0 130px;
-}
-
-ul.blog-posts li a:visited {
-  color: var(--visited-color);
 }

@@ -2,11 +2,16 @@
 import Layout from './Base.astro';
 import Container from "../components/Container.astro";
 import ArticleSchema from '../components/ArticleSchema.astro';
+import Header from '../components/Header.astro';
+import Nav from '../components/Nav.astro';
 
 const { frontmatter } = Astro.props;
 ---
 
 <Layout seo={frontmatter}>
+  <Header>
+    <Nav />
+  </Header>
   <Fragment slot="head-bottom">
   <ArticleSchema {...frontmatter}  />
  </Fragment>

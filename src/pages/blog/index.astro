@@ -21,9 +21,13 @@ const posts = await Astro.glob('./content/*.md').then(posts =>
               image: frontmatter.image,
               tags: frontmatter.tags
             }))
-    // .sort((a, b) => {
-    //   new Date(b.publishDate) - new Date(a.publishDate)
-    // })
+    .sort((a, b) => {
+      const dateA = new Date(a.publishDate);
+      const dateB = new Date(b.publishDate);
+      
+      // Perform the subtraction (in milliseconds) to compare the dates
+      return dateB.getTime() - dateA.getTime();
+    })
 );
 
 const uniqueTags = [
