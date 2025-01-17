@@ -96,7 +96,7 @@ const seo = {
     }
 
     document.addEventListener('search', ((e: CustomEvent) => {        
-          const searchTerm = e.detail.toLowerCase();
+          const searchTerm = (e.detail || '').toLowerCase();
           const postItems = document.querySelectorAll<HTMLElement>('.post-item');
           
           if (!searchTerm) {
@@ -105,13 +105,11 @@ const seo = {
           }
 
           postItems.forEach(item => {
-              const title = item.dataset.title || '';
-              const description = item.dataset.description || '';
-              const tags = item.dataset.tags?.split(',') || [];
+              const title = (item.dataset.title || '').toLowerCase() || '';
+              const tags = (item.dataset.tags || '').toLowerCase().split(',') || [];
               
               const isMatch = 
                   title.includes(searchTerm) || 
-                  description.includes(searchTerm) ||
                   tags.some(tag => tag.includes(searchTerm));
               
               item.style.display = isMatch ? '' : 'none';

@@ -6,15 +6,13 @@
 <script>
     const searchInput = document.getElementById('searchInput');
     
-    if (searchInput != null) {
-        searchInput.addEventListener('input', (e) => {
-            const target = e.target as HTMLTextAreaElement;
-            const searchTerm = target.value?.toLowerCase();
-            
-            const searchEvent = new CustomEvent('search', {
-                detail: searchTerm
-            });
-            document.dispatchEvent(searchEvent);
-        });
+    if (searchInput) {
+        searchInput.addEventListener('input', handleSearchInput);
+    }
+
+    function handleSearchInput(event) {
+        event.preventDefault();
+        const searchTerm = event.target.value.toLowerCase();
+        document.dispatchEvent(new CustomEvent('search', { detail: searchTerm }));
     }
 </script>
