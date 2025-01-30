@@ -1,13 +1,9 @@
 export default {
-  title: `Astro Minimal Starter`,
-  description: `This is an example blog made with Astro.`,
-  url: `https://astro-minimal-starter.netlify.app`, // No trailing slash!
+  title: `s1lentmt's blog`,
+  description: `This is where I share my ideas and experiences about web development, cybersecurity and electronics.`,
+  url: `https://www.s1lentmt.com`, // No trailing slash!
   // JSON LD
-  name: `Example`,
-  // Facebook URL
-  facebookURL: `https://facebook.com`,
-  // Twitter URL
-  twitterURL: `https://twitter.com/jaydanurwin`,
-  // Instagram URL
-  instagramURL: `https://instagram.com/jaydanurwin`,
+  name: `s1lentmt`,
+  // Bluesky URL
+  blueskyURL: `https://bsky.app/profile/s1lentmt.bsky.social`,
 };
