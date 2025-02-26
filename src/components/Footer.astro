@@ -1,3 +1,16 @@
+---
+import { getLanguage } from "../utils/lang"
+
+const pathname = Astro.url.pathname;
+const language = pathname.startsWith('/es') ? 'es' : 'en';
+const otherLanguage = language === 'es' ? 'en' : 'es';
+const newPath = pathname.replace(`/${language}`, `/${otherLanguage}`);
+---
 <footer>
   <p>Took inspo from <a href="https://bearblog.dev">Bear ʕ•ᴥ•ʔ</a></p>
+  {language === 'es' ? (
+    <a href={newPath} style="margin-right: 10px;">Cambiar a Inglés</a>
+  ) : (
+    <a href={newPath} style="margin-right: 10px;">Switch to Spanish</a>
+  )}
 </footer>

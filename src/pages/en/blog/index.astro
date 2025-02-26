@@ -1,0 +1,125 @@
+---
+import Layout from '../../../layouts/Base.astro'
+import Container from '../../../components/Container.astro';
+import BlogPostPreview from '../../../components/BlogPostPreview.astro';
+import Paginator from '../../../components/Paginator.astro'
+import BaseHead from '../../../components/BaseHead.astro'
+import Header from '../../../components/Header.astro'
+import Nav from '../../../components/Nav.astro'
+import SearchBar from '../../../components/SearchBar.astro'
+import FormattedDate from '../../../components/FormattedDate.astro'
+import {SITE_DESCRIPTION} from "../../../consts.js";
+import Footer from '../../../components/Footer.astro'
+
+
+const posts = await Astro.glob('./content/*.md').then(posts =>
+        posts
+            .map(({ frontmatter, url }) => ({
+              url: url,
+              title: frontmatter.title,
+              description: frontmatter.description,
+              publishDate: frontmatter.publishDate,
+              image: frontmatter.image,
+              tags: frontmatter.tags
+            }))
+    .sort((a, b) => {
+      const dateA = new Date(a.publishDate);
+      const dateB = new Date(b.publishDate);
+      
+      // Perform the subtraction (in milliseconds) to compare the dates
+      return dateB.getTime() - dateA.getTime();
+    })
+);
+
+const uniqueTags = [
+  ...new Set(
+      posts.flatMap((post) => post.tags).filter((tag) => tag !== undefined)
+  ),
+].sort();
+
+// Component Script:
+// You can write any JavaScript/TypeScript that you'd like here.
+// It will run during the build, but never in the browser.
+// All variables are available to use in the HTML template below.
+
+const seo = {
+  title: 'Example Blog',
+  description: 'This is a starter repo for an blog built with Astro including open graph tags, canonical urls, RSS, sitemap support.'
+}
+
+---
+
+
+<!doctype html>
+<Layout {seo}>
+    <Container>
+        <Header>
+            <Nav />
+        </Header>
+        <main>
+            <SearchBar />
+            <ul class="blog-posts">
+                {
+                    posts.map((post) => (
+                        <li class="post-item" data-title={post.title.toLowerCase()} data-description={post.description?.toLowerCase()} data-tags={post.tags?.join(',').toLowerCase()}>
+                            <span>
+                                <i>
+                                    <FormattedDate date={post.publishDate} />
+                                </i>
+                            </span>
+                            <a href={`${post.url}/`}>{post.title}</a>
+                        </li>
+                    ))
+                }
+            </ul>
+            <div class="tags">
+                {
+                    uniqueTags.map((tag) => (
+                        <a class="tag" href={`/en/tags/${tag}/`}>
+                            #{tag}
+                        </a>
+                    ))
+                }
+            </div>
+        </main>
+    </Container>
+    <Footer />
+</Layout>
+
+<script>
+    interface BlogPost {
+        url: string;
+        title: string;
+        description?: string;
+        publishDate: string;
+        image?: string;
+        tags?: string[];
+    }
+
+    document.addEventListener('search', ((e: CustomEvent) => {        
+          const searchTerm = (e.detail || '').toLowerCase();
+          const postItems = document.querySelectorAll<HTMLElement>('.post-item');
+          
+          if (!searchTerm) {
+              postItems.forEach(item => item.style.display = '');
+              return;
+          }
+
+          postItems.forEach(item => {
+              const title = (item.dataset.title || '').toLowerCase() || '';
+              const tags = (item.dataset.tags || '').toLowerCase().split(',') || [];
+              
+              const isMatch = 
+                  title.includes(searchTerm) || 
+                  tags.some(tag => tag.includes(searchTerm));
+              
+              item.style.display = isMatch ? '' : 'none';
+          });
+    }) as EventListener);
+</script>
+
+<style>
+    .post-item {
+        display: list-item;
+    }
+</style>

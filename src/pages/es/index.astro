@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Base.astro";
+import Container from "../../components/Container.astro";
+import Nav from "../../components/Nav.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+import "../../styles/home.css";
+
+const seo = {
+  title: "s1lentmt's blog",
+  description:
+    "This is where I share my ideas and experiences about web development, cybersecurity and electronics.",
+};
+---
+
+<Layout {seo}>
+  <Container>
+    <Header>
+      <Nav />
+    </Header>
+    <h1>¡Hola, bienvenido ᕕ(⌐■_■)ᕗ!</h1>
+    <p>Me llamo Sergio y soy un desarrollador web de España.</p>
+
+    <p>
+      Me encanta todo lo relacionado con el desarrollo web, ya sea construyendo
+      front-ends elegantes, o sumergiéndome en la locura del back-end.
+      Últimamente, también he estado explorando el mundo de la ciberseguridad, y
+      estoy comenzando a interesarme por la electrónica, especialmente por proyectos
+      que involucren ESP32.
+    </p>
+
+    <p>
+      Este pequeño espacio en el gran Internet es donde comparto mis
+      pensamientos, experiencias y proyectos. Tanto como si te interesa el desarrollo
+      web, la ciberseguridad o la electrónica, estoy seguro de que encontrarás algo
+      que despierte tu interés.
+    </p>
+
+
+    <a href="/es/blog">Blog →</a>
+  </Container>
+  <Footer />
+</Layout>

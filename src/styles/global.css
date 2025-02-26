@@ -155,3 +155,26 @@ ul.blog-posts li {
 ul.blog-posts li span {
   flex: 0 0 130px;
 }
+
+code {
+  padding: 0;
+  background: transparent;
+  line-height: 1.5;
+  word-break: normal;
+  white-space: pre;
+  word-spacing: normal;
+  tab-size: 4;
+}
+
+.astro-code {
+  --shiki-dark-bg: #0b0e14;
+  color: #393a34;
+  --shiki-dark: #bfbdb6;
+  overflow-x: auto;
+  padding: 25px;
+}
+
+.responsive {
+  max-width: 100%;
+  height: auto;
+}

@@ -4,6 +4,7 @@ import Container from "../components/Container.astro";
 import ArticleSchema from '../components/ArticleSchema.astro';
 import Header from '../components/Header.astro';
 import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 
 const { frontmatter } = Astro.props;
 ---
@@ -17,10 +18,11 @@ const { frontmatter } = Astro.props;
  </Fragment>
   <Container>
     <article class="post-content__article">
-      {frontmatter.image && <img width="720" height="420" class="post-main__img" loading="lazy" src={frontmatter.image} alt={frontmatter.alt} />}
+      {frontmatter.image && <div style="text-align: center;"><img class="post-main__img responsive" loading="lazy" src={frontmatter.image} alt={frontmatter.alt} /></div>}
       <h1>{frontmatter.title}</h1>
       <time>{frontmatter.publishDate}</time>
       <slot />
     </article>
   </Container>
+  <Footer></Footer>
 </Layout>

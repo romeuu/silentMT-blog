@@ -1,7 +1,10 @@
 ---
+import { getLanguage } from "../utils/lang";
+
+const language = getLanguage(Astro.url.pathname);
 ---
 
-<input type="search" name="q" placeholder="Search..." id="searchInput" />
+<input type="search" name="q" placeholder={`${language === 'en' ? 'Search...' : 'Buscar...'}`} id="searchInput" />
 
 <script>
     const searchInput = document.getElementById('searchInput');

@@ -1,6 +1,12 @@
+---
+import { getLanguage } from '../utils/lang.js';
+
+const language = getLanguage(Astro.url.pathname);
+---
+
 <nav>
   <p>
-    <a href="/">Home</a>
-    <a href="/blog">Blog</a>
+    <a href={`/${language}`}>Home</a>
+    <a href={`/${language}/blog`}>Blog</a>
   </p>
 </nav>

@@ -1,0 +1,78 @@
+---
+import BaseHead from "../../../components/BaseHead.astro";
+import Footer from "../../../components/Footer.astro";
+import FormattedDate from "../../../components/FormattedDate.astro";
+import Header from "../../../components/Header.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../../consts";
+import Nav from "../../../components/Nav.astro";
+
+export async function getStaticPaths() {
+  const posts = await Astro.glob('../blog/content/*.md').then(posts =>
+        posts
+            .map(({ frontmatter, url }) => ({
+              url: url,
+              title: frontmatter.title,
+              description: frontmatter.description,
+              publishDate: frontmatter.publishDate,
+              image: frontmatter.image,
+              tags: frontmatter.tags
+            }))
+     .sort((a, b) => {
+       b.publishDate - a.publishDate
+     })
+);
+
+console.log(posts);
+
+  const uniqueTags = [
+    ...new Set(
+      posts
+        .flatMap((post) => post.tags)
+        .filter((tag) => tag !== undefined)
+    ),
+  ];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = posts.filter(
+      (post) => post.tags && post.tags.includes(tag)
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={tag} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header>
+      <Nav />
+    </Header>
+    <main>
+      <h3 class="filter-title">Filtrando por "{tag}"</h3>
+      <a href="/blog" class="remove-filter">Borrar filtro</a>
+      <ul class="blog-posts">
+        {
+          posts.map((post) => (
+            <li>
+              <span>
+                <i>
+                  <FormattedDate date={post.publishDate} />
+                </i>
+              </span>
+              <a href={`${post.url}/`}>{post.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+    <Footer />
+  </body>
+</html>
