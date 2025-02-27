@@ -6,5 +6,8 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: "https://astro-minimal-starter.netlify.app/",
-  integrations: [sitemap()]
+  integrations: [sitemap()],
+  build: {
+    format: 'directory'
+  }
 });

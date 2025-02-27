@@ -1,0 +1,70 @@
+---
+import Layout from "../layouts/Base.astro";
+import Container from "../components/Container.astro";
+import { getLanguage } from "../utils/lang";
+
+const lang = getLanguage(Astro.url.pathname);
+
+const seo = {
+  title: lang === "es" ? "¡Ups! Página no encontrada" : "Uh Oh! Page Not Found",
+  description: "404 error page"
+}
+---
+
+<Layout seo={seo}>
+  <Container>
+    <div class="error-container">
+      <h1>404</h1>
+      {lang === "es" ? (
+        <>
+          <p>¡Ups! No pudimos encontrar la página que buscabas.</p>
+          <p>Incluso Psyduck está confundido...</p>
+          <a href="/es">Volver al inicio</a>
+        </>
+      ) : (
+        <>
+          <p>Uh Oh! We couldn't find the page you were looking for.</p>
+          <p>Even Psyduck is confused...</p>
+          <a href="/en">Return Home</a>
+        </>
+      )}
+      <div class="image-container">
+        <img src="/assets/200w.gif" alt="404 error gif" width="200" height="200" />
+      </div>
+    </div>
+  </Container>
+</Layout>
+
+<style>
+  .error-container {
+    text-align: center;
+    padding: 2rem 0;
+  }
+  
+  .image-container {
+    margin-top: 2rem;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+  
+  a {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+  
+  a:hover {
+    opacity: 0.8;
+  }
+</style>

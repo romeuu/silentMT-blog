@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "/es/**",
+      "use": "@astro/vercel/static",
+      "config": {
+        "includeStaticFiles": true,
+        "rewrite": {
+          "404": "/404.astro"
+        }
+      }
+    },
+    {
+      "src": "/en/**",
+      "use": "@astro/vercel/static",
+      "config": {
+        "includeStaticFiles": true,
+        "rewrite": {
+          "404": "/404.astro"
+        }
+      }
+    },
+    {
+      "src": "/**",
+      "use": "@astro/vercel/static",
+      "config": {
+        "includeStaticFiles": true,
+        "rewrite": {
+          "404": "/404.astro"
+        }
+      }
+    }
+  ]
+}
+

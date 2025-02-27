@@ -5,7 +5,8 @@
   "scripts": {
     "start": "astro dev",
     "build": "astro build",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "preview": "astro preview"
   },
   "devDependencies": {
     "@astrojs/sitemap": "^1.0.0",
