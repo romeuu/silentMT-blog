@@ -11,28 +11,38 @@ import FormattedDate from '../../../components/FormattedDate.astro'
 import {SITE_DESCRIPTION} from "../../../consts.js";
 import Footer from '../../../components/Footer.astro'
 
-const posts = await Astro.glob('./content/*.md').then(posts =>
-        posts
-            .map(({ frontmatter, url }) => ({
-              url: url,
-              title: frontmatter.title,
-              description: frontmatter.description,
-              publishDate: frontmatter.publishDate,
-              image: frontmatter.image,
-              tags: frontmatter.tags
-            }))
-    .sort((a, b) => {
-      const dateA = new Date(a.publishDate);
-      const dateB = new Date(b.publishDate);
-      
-      // Perform the subtraction (in milliseconds) to compare the dates
-      return dateB.getTime() - dateA.getTime();
-    })
-);
+interface Frontmatter {
+  title: string;
+  description?: string;
+  publishDate: string;
+  formatDate: string;
+  image?: string;
+  tags?: string[];
+}
+
+const posts = Object.values(import.meta.glob<{ frontmatter: Frontmatter, url: string }>('./content/*.md', { eager: true }));
+
+const sortedPosts = posts
+  .map((post) => ({
+    url: post.url,
+    title: post.frontmatter.title,
+    description: post.frontmatter.description,
+    publishDate: post.frontmatter.publishDate,
+    formatDate: post.frontmatter.formatDate,
+    image: post.frontmatter.image,
+    tags: post.frontmatter.tags,
+  }))
+  .sort((a, b) => {
+    const dateA = new Date(a.formatDate);
+    const dateB = new Date(b.formatDate);
+
+    // Perform the subtraction (in milliseconds) to compare the dates
+    return dateB.getTime() - dateA.getTime();
+  });
 
 const uniqueTags = [
   ...new Set(
-      posts.flatMap((post) => post.tags).filter((tag) => tag !== undefined)
+      posts.flatMap((post) => post.frontmatter.tags).filter((tag) => tag !== undefined)
   ),
 ].sort();
 
@@ -59,12 +69,10 @@ const seo = {
             <SearchBar />
             <ul class="blog-posts">
                 {
-                    posts.map((post) => (
+                    sortedPosts.map((post) => (
                         <li class="post-item" data-title={post.title.toLowerCase()} data-description={post.description?.toLowerCase()} data-tags={post.tags?.join(',').toLowerCase()}>
-                            <span>
-                                <i>
-                                    <FormattedDate date={post.publishDate} />
-                                </i>
+                            <span class="publish-date">
+                                <FormattedDate date={post.formatDate} />
                             </span>
                             <a href={`${post.url}/`}>{post.title}</a>
                         </li>
@@ -74,7 +82,7 @@ const seo = {
             <div class="tags">
                 {
                     uniqueTags.map((tag) => (
-                        <a class="tag" href={`/es/tags/${tag}/`}>
+                        <a class="tag" href={`/en/tags/${tag}/`}>
                             #{tag}
                         </a>
                     ))

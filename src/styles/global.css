@@ -72,6 +72,10 @@ time {
   font-size: 13px;
 }
 
+.publish-date {
+  font-size: 13px;
+}
+
 strong,
 b {
   color: var(--heading-color);

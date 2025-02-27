@@ -1,18 +1,32 @@
 ---
+import { getLanguage } from "../utils/lang";
+
 const { date } = Astro.props;
 const dateFormatted = new Date(date);
+
+const lang = getLanguage(Astro.url.pathname);
+
 ---
 
-<time datetime={dateFormatted.toISOString()}>
+<time>
     {
-        dateFormatted.toLocaleDateString("es-ES", {
-            month: "short",
-            day: "2-digit",
-        })
+        lang === "es"
+            ? dateFormatted.toLocaleDateString("es-ES", {
+                  month: "short",
+                  day: "2-digit",
+              })
+            : dateFormatted.toLocaleDateString("en-EN", {
+                  month: "short",
+                  day: "2-digit",
+              })
     },
     {
-        dateFormatted.toLocaleDateString("es-ES", {
-            year: "numeric",
-        })
+        lang === "es"
+            ? dateFormatted.toLocaleDateString("es-ES", {
+                  year: "numeric",
+              })
+            : dateFormatted.toLocaleDateString("en-EN", {
+                  year: "numeric",
+              })
     }
 </time>

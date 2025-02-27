@@ -3,6 +3,7 @@ layout: ../../../../layouts/Post.astro
 title: Whiterose THM Writeup
 description: This is a writeup of Whiterose, a TryHackMe room.
 publishDate: Martes, 25 de febrero de 2025
+formatDate: 2025-02-25
 author: "s1lentMT"
 image: "/assets/blog/whiterose/whiterose-thm.png"
 alt: Image of TryHackMe's Whiterose room.
