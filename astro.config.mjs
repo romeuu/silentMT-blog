@@ -6,14 +6,19 @@ import vercel from '@astrojs/vercel/static';
 export default defineConfig({
   site: "https://s1lentmt.com",
   integrations: [sitemap({
+    filter: (page) => page !== undefined,
+    serialize(item) {
+      return {
+        url: item.url,
+        changefreq: 'weekly',
+        lastmod: new Date().toISOString()
+      };
+    },
     i18n: {
       defaultLocale: 'en',
       locales: {
         en: 'en-US',
         es: 'es-ES'
-      },
-      routing: {
-        prefixDefaultLocale: true
       }
     }
   })],
