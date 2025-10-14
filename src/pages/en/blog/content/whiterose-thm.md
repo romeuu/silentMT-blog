@@ -1,12 +1,14 @@
 ---
 layout: ../../../../layouts/Post.astro
-title: Whiterose THM Writeup
-description: This is a writeup of Whiterose, a TryHackMe room.
+title: "Whiterose TryHackMe Writeup: IDOR, EJS RCE and Privilege Escalation"
+description: "Step-by-step guide for TryHackMe's Whiterose machine. Learn how to exploit IDOR vulnerabilities, EJS RCE, and privilege escalation techniques with sudoedit in a real environment."
 publishDate: Tuesday, February 25 2025
 author: "s1lentMT"
 image: "/assets/blog/whiterose/whiterose-thm.png"
-alt: Image of TryHackMe's Whiterose room.
-tags: ["Writeup"]
+alt: "Screenshot of TryHackMe's Whiterose machine showing the vulnerable admin panel"
+tags: ["Writeup", "TryHackMe"]
+lang: "en"
+canonical: "/en/blog/content/whiterose-thm"
 ---
 
 At the beginning, we are informed that the user **Olivia Cortez** with the password **olivi8** will be useful throughout the machine.

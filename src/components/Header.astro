@@ -1,9 +1,12 @@
 ---
 import "../styles/header.css";
+import { getLang } from "../utils/lang";
+
+const language = getLang(Astro.url.pathname);
 ---
 
 <header id="header-container">
-  <a class="title" href="/">
+  <a class="title" href={`/${language}`}>
     <h1>ʕ•ᴥ•ʔ</h1>
   </a>
   <slot />

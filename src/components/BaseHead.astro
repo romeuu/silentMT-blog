@@ -41,6 +41,11 @@ const image = new URL(Astro.props.image || "./social.png", Astro.site);
 <!-- Canonical -->
 <link rel="canonical" href={canonicalURL} />
 
+<!-- Alternate Lang -->
+<link rel="alternate" hreflang="es" href={`${settings.url}/es${Astro.url.pathname.replace(/^\/(es|en)/, '')}`} />
+<link rel="alternate" hreflang="en" href={`${settings.url}/en${Astro.url.pathname.replace(/^\/(es|en)/, '')}`} />
+<link rel="alternate" hreflang="x-default" href={`${settings.url}/en${Astro.url.pathname.replace(/^\/(es|en)/, '')}`} />
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonicalURL} />

@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/Base.astro";
 import Container from "../components/Container.astro";
-import { getLanguage } from "../utils/lang";
+import { getLang } from "../utils/lang";
 
-const lang = getLanguage(Astro.url.pathname);
+const lang = getLang(Astro.url.pathname);
 
 const seo = {
   title: lang === "es" ? "¡Ups! Página no encontrada" : "Uh Oh! Page Not Found",

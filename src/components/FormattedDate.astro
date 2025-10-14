@@ -1,11 +1,10 @@
 ---
-import { getLanguage } from "../utils/lang";
+import { getLang } from "../utils/lang";
 
 const { date } = Astro.props;
 const dateFormatted = new Date(date);
 
-const lang = getLanguage(Astro.url.pathname);
-
+const lang = getLang(Astro.url.pathname);
 ---
 
 <time>
